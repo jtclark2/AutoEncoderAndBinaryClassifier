@@ -67,5 +67,16 @@ activate your environment
 open the notebook, and run
 
 # Future Improvements:
-- The segmentation is a great proof of concept, and the results are decent for my limited dataset, 
-  but I would really like to read up on recent tools and see how much I can improve this
+- Improve the performance at bright edge transitions. Almost all remaining error in the nominal images comes from these. There are a few solutions that I think would work well...
+        - Introduce data augmentation...No real downside here, and I'm getting to it `tf.keras.preprocessing.image.ImageDataGenerator( ...  width_shift_range=0.0,
+    height_shift_range=0.0, ... )`
+        - Define those areas in the known image...In an earlier version of this project, I was dividing out an average image (a composite of all nominal images in the dataset). This creates an idealized average image. The biggest problem was that small translations caused problems. However, we could run it through an edgefinder, and theshold it to create a mask. Then use that mask to denoise with more aggressive parameters, or just 0 the loss image completely. 
+        - Crop: I actually took cropping out...it kind of made it too easy, and I wanted to showcase the model more generally. However, if I crop out the big edges, the data cleans up really nice...definitely add it for real applications. Consider adding it to the notebook, if it works with the story I'm trying to tell
+- Explore other datasets and applications
+    - The welds are pretty big, and not really anomalies, I have a couple images with a twisted clevis, and different lighting (which are detected quite well, but it's a lot harder to tell the story in this notebook, so I left them out)...I'd like to try data with smaller blemishes
+- Play around with other denoisers 
+    - mine actually works really well - somebody else must have thought of this before, right? Maybe I can figure out what it's called
+    - cv2.fastNlMeansDenoising
+    - AutoEncoder (how meta is that?)
+- Play with other loss functions
+- Add model saving callbacks (maybe a patience, and one for every N epochs - I think I have them in the binary classifier, so just look through that example)
