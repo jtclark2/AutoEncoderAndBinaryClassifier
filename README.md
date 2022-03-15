@@ -8,18 +8,13 @@ It contains related projects:
 # Motivation
 Both projects were originally prototyped in a weekend, intended as a proof-of-concept that ML could be used to replace some of the more conventional image processing tools I'd been writing. Specifically, I wanted to demonstrate:
 - These tools could work with relatively small training sets (100-300 images)
-    - My audience was aware of ML tools, but mostly with regard to big data, so 
+    - My audience was aware of ML tools, but mostly with regard to big data, so I wanted to demonstrate viability with just a few images 
 - These tools could generalize to multiple applications
 
 # Data / NDA
-- TODO: For both of these projects, you have 2 options:
-    - Start by viewing the notebooks, which I've run with my local data
-    - Set up your own, by changing the data directory
-        - TODO: Restructure notebooks, by editing the configuration data / image directories in the beginning of the file
 - Anomaly detector is trained on real weld data
-    - Feel free to look through the notebook, to see the results.
-    - The full dataset won't be shared. It's not mine to share. 
-- Classifier: I had originally trained this on data from a product that was not released, so I won't be sharing this at all.
+    - The full dataset won't be shared. It's not mine to share (NDA), but I've shared a few samples for one of the products that has already been released.
+- Classifier: I had originally trained this on data from a product that has not been released, so I won't be sharing any of that data.
     - I've replaced the data with images of the lovable character Totoro!
 
 ## 1) Anomaly Detector:
@@ -49,10 +44,6 @@ My original goal was generalized detector, that could train on few (~100-300) im
         - Most of the variation was from translation, hotspots, and viewing angle.
     - The dataset I'm using is not representative, but it's what I had on hand.
 
-# Setup
-TBD - basically open jupyter notebook, and navigate to the file
-> `jupyter notebook`
-
 ### BinaryClassifier
 - I've recently tested the classifier, so I know it works (though you may )
 - Update `root_dir` path to the data (which is too big for the repo)
@@ -60,13 +51,13 @@ TBD - basically open jupyter notebook, and navigate to the file
 ### AnomalyDetector
 - Should work (definitely used to, assuming I snagged the most recent copy, but haven't tested since I first wrote it)
 
-
 # Run
 activate your environment
 `jupyter notebook`
 open the notebook, and run
 
-# Future Improvements:
+# Future Improvements (TODO):
+- Restructure notebooks, by editing the configuration data / image directories in the beginning of the file
 - Improve the performance at bright edge transitions. Almost all remaining error in the nominal images comes from these. There are a few solutions that I think would work well...
         - Introduce data augmentation...No real downside here, and I'm getting to it `tf.keras.preprocessing.image.ImageDataGenerator( ...  width_shift_range=0.0,
     height_shift_range=0.0, ... )`
@@ -78,5 +69,4 @@ open the notebook, and run
     - mine actually works really well - somebody else must have thought of this before, right? Maybe I can figure out what it's called
     - cv2.fastNlMeansDenoising
     - AutoEncoder (how meta is that?)
-- Play with other loss functions
 - Add model saving callbacks (maybe a patience, and one for every N epochs - I think I have them in the binary classifier, so just look through that example)
