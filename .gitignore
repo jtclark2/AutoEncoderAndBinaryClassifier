@@ -1,2 +1,5 @@
+Data/*
+models/temp/*
+
 *.pyc
 .ipynb_checkpoints
